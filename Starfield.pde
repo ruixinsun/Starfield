@@ -1,9 +1,10 @@
-Particle[] bob;
-
+Particle[] bob=new Particle[300];
+int red=75;
+int blue=130;
 void setup()
 {
   size(400, 400);
-  bob =new Particle[300];
+  
   for (int i =0; i<bob.length; i++)
   {
     bob[i]=new NormalParticle();
@@ -11,9 +12,32 @@ void setup()
   bob[0]=new JumboParticle();
   bob[1]=new OddballParticle();
 }
+void mousePressed()
+{
+  
+  for (int i=0;i<bob.length; i++)
+  {
+    bob[i]=new NormalParticle();
+    
+  }
+  
+  bob[0]=new JumboParticle();
+  bob[1]=new OddballParticle();
+}
 void draw()
 {
-  background(0);
+  background(red,0,blue,0);
+  /*if (red<255)
+  red+=1;
+  else
+  red=75;
+  blue+=1;
+  if (blue<255)
+  blue-=1;
+  else
+  blue=130;
+ 
+  System.out.print(blue+" "+red+",");*/
   for (int i =0; i<bob.length; i++)
   {
     bob[i].show();
@@ -24,14 +48,17 @@ void draw()
 class NormalParticle implements Particle
 {
   int myColor;
-  double myX, myY, Speed, Angle;
-
-  NormalParticle()
+  public double myX, myY, Speed, Angle;
+  
+  public NormalParticle()
   {
-    myX=myY=200;
+    myX=200;
+    myY=200;
     Angle=(Math.random()*2) * Math.PI;
-    Speed=(Math.random()*5);
+    Speed=(Math.random()*2);
+    myColor=(int)(Math.random()*255);
   }
+
   void move()
   {
     myX=myX+(Math.cos(Angle))*Speed;
@@ -39,8 +66,10 @@ class NormalParticle implements Particle
   }
   void show()
   {
-
-    ellipse((float)myX, (float)myY, 10, 10);
+    fill(myColor,myColor,0,myColor);
+    noStroke();
+    ellipse((float)myX, (float)myY, 5, 5);
+    fill(255);
   }
 }
 interface Particle
@@ -50,36 +79,42 @@ interface Particle
 }
 class OddballParticle implements Particle //uses an interface
 {
-  int myColor;
+  int myColor, direction;
   double myX, myY, Speed, Angle;
   OddballParticle()
   {
     myX=200;
-    myY=200;
-    Angle=(Math.random()*1) * Math.PI;
+    myY=350;
     Speed=(Math.random()*7);
+    direction=1;
   }
   void move()
   {
-    myX=myX+(int)(Math.random()*5)-3;
-    myY=myY+(int)(Math.random()*5)-3;
+    myX+=Speed*direction;
+    if (myX<25)
+    {
+      direction=1;
+    }
+     if (myX>375)
+     direction=-1;
   }
   void show()
   {
-
-    ellipse((float)myX, (float)myY, 50, 50);
+    fill(255,255,0);
+    ellipse((float)myX, (float)myY-10, 25, 25);
+    fill(128);
+    ellipse((float)myX, (float)myY, 60, 20);
+    
   }
 }
-class JumboParticle extends NormalParticle//uses inheritance
+
+public class JumboParticle extends NormalParticle//uses inheritance
 {
-  //JumboParticle()
-  //{
-    
-  //}
-  
+
   void show()
   {
-
-    rect((float)myX, (float)myY, 50, 50);
+    
+    fill(0,255,0);
+    rect((float)myX, (float)myY,20,20);
   }
 }
