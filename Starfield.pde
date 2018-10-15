@@ -1,6 +1,5 @@
 Particle[] bob=new Particle[300];
-int red=75;
-int blue=130;
+
 void setup()
 {
   size(400, 400);
@@ -26,18 +25,8 @@ void mousePressed()
 }
 void draw()
 {
-  background(red,0,blue,0);
-  /*if (red<255)
-  red+=1;
-  else
-  red=75;
-  blue+=1;
-  if (blue<255)
-  blue-=1;
-  else
-  blue=130;
- 
-  System.out.print(blue+" "+red+",");*/
+  background(0);
+  
   for (int i =0; i<bob.length; i++)
   {
     bob[i].show();
